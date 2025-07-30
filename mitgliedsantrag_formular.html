@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Mitgliedsantrag</title>
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+  <!-- ✅ Korrekte EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function(){
-      emailjs.init("vGtRi_YowVHTWMd5F");
+      emailjs.init("vGtRi_YowVHTWMd5F"); // <-- dein Public Key
     })();
   </script>
+
+  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
     body {
       background-color: #eee;
@@ -73,7 +78,7 @@
       const data = Object.fromEntries(new FormData(form).entries());
 
       // PDF generieren mit jsPDF
-      const {{ jsPDF }} = window.jspdf;
+      const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
       doc.text("Mitgliedsantrag", 10, 10);
       doc.text(`Name: ${data.name}`, 10, 20);
