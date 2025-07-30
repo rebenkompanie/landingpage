@@ -5,12 +5,11 @@
   <title>Mitgliedsantrag</title>
 
   <!-- ✅ Korrekte EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      emailjs.init("vGtRi_YowVHTWMd5F"); // <-- dein Public Key
-    })();
-  </script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+  window.emailjs = emailjs;
+  emailjs.init("vGtRi_YowVHTWMd5F");
+</script>
 
   <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
