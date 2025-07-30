@@ -29,7 +29,20 @@
       top: 20px;
       right: 20px;
       width: 100px;
+      height: auto;
     }
+
+    /* Logo auf kleineren Bildschirmen zentrieren */
+    @media (max-width: 600px) {
+      .logo {
+        position: static;
+        display: block;
+        margin: 0 auto 1rem auto;
+        width: 80px;
+        height: auto;
+      }
+    }
+
     h2, h3 {
       text-align: center;
     }
