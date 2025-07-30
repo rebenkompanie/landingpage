@@ -1,137 +1,103 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Mitgliedsantrag</title>
-
-  <style>
-    body {
-      background-color: #2d2d2d;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    form {
-      background-color: #444;
-      padding: 2rem;
-      border-radius: 10px;
-      display: inline-block;
-      margin-top: 2rem;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-    }
-
-    button {
-      background-color: #f3c400;
-      color: black;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 1rem;
-    }
-  </style>
-
-  <!-- ✅ Neue SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-  <!-- ✅ EmailJS init -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script type="text/javascript">
     (function(){
       emailjs.init("vGtRi_YowVHTWMd5F");
     })();
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      background-color: #eee;
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+    }
+    input, select, label {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+    button {
+      background-color: #333;
+      color: white;
+      padding: 0.7rem;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
   <h2>Antrag auf Mitgliedschaft</h2>
-
   <form id="membershipForm">
-    <input type="text" name="name" placeholder="Name" required />
-    <input type="text" name="strasse" placeholder="Straße" required />
-    <input type="text" name="ort" placeholder="Ort" required />
-    <input type="text" name="telefon" placeholder="Telefon" />
-    <input type="text" name="mobil" placeholder="Mobil" />
-    <input type="email" name="email" placeholder="E-Mail" required />
-    <input type="text" name="spende" placeholder="Jährliche Spende (optional)" />
-    
-    <label>Spendenquittung gewünscht?</label>
-    <select name="quittung">
-      <option value="Ja">Ja</option>
-      <option value="Nein">Nein</option>
-    </select>
-
-    <label>Zahlweise</label>
-    <select name="zahlung">
-      <option value="Überweisung">Überweisung</option>
-      <option value="Abbuchung">Abbuchung</option>
-    </select>
-
-    <label><input type="checkbox" required /> Ich stimme der Datenschutzerklärung zu.</label>
-
+    <input type="text" name="name" placeholder="Name / Vorname / Firma" required>
+    <input type="text" name="strasse" placeholder="Straße" required>
+    <input type="text" name="ort" placeholder="PLZ / Ort" required>
+    <input type="text" name="telefon" placeholder="Telefon">
+    <input type="text" name="mobil" placeholder="Mobil">
+    <input type="email" name="email" placeholder="E-Mail" required>
+    <input type="text" name="spende" placeholder="Jährliche Spende (optional)">
+    <label>Spendenquittung gewünscht:
+      <select name="quittung">
+        <option>Ja</option>
+        <option>Nein</option>
+      </select>
+    </label>
+    <label>Zahlweise:
+      <select name="zahlung">
+        <option>Abbuchung</option>
+        <option>Überweisung</option>
+      </select>
+    </label>
+    <label>
+      <input type="checkbox" name="dsgvo" required> Ich stimme der Datenschutzerklärung zu.
+    </label>
     <button type="submit">Absenden</button>
   </form>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    document.getElementById('membershipForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+    document.getElementById("membershipForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = Object.fromEntries(new FormData(form).entries());
 
-      const form = e.target;
-      const name = form.name.value;
-      const strasse = form.strasse.value;
-      const ort = form.ort.value;
-      const telefon = form.telefon.value;
-      const mobil = form.mobil.value;
-      const email = form.email.value;
-      const spende = form.spende.value;
-      const quittung = form.quittung.value;
-      const zahlung = form.zahlung.value;
-
-      // PDF erstellen
-      const { jsPDF } = window.jspdf;
+      // PDF generieren mit jsPDF
+      const {{ jsPDF }} = window.jspdf;
       const doc = new jsPDF();
-      doc.text(`Mitgliedsantrag`, 10, 10);
-      doc.text(`Name: ${name}`, 10, 20);
-      doc.text(`Straße: ${strasse}`, 10, 30);
-      doc.text(`Ort: ${ort}`, 10, 40);
-      doc.text(`Telefon: ${telefon}`, 10, 50);
-      doc.text(`Mobil: ${mobil}`, 10, 60);
-      doc.text(`E-Mail: ${email}`, 10, 70);
-      doc.text(`Spende: ${spende}`, 10, 80);
-      doc.text(`Spendenquittung: ${quittung}`, 10, 90);
-      doc.text(`Zahlweise: ${zahlung}`, 10, 100);
+      doc.text("Mitgliedsantrag", 10, 10);
+      doc.text(`Name: ${data.name}`, 10, 20);
+      doc.text(`Straße: ${data.strasse}`, 10, 30);
+      doc.text(`Ort: ${data.ort}`, 10, 40);
+      doc.text(`Telefon: ${data.telefon}`, 10, 50);
+      doc.text(`Mobil: ${data.mobil}`, 10, 60);
+      doc.text(`E-Mail: ${data.email}`, 10, 70);
+      doc.text(`Spende: ${data.spende}`, 10, 80);
+      doc.text(`Spendenquittung: ${data.quittung}`, 10, 90);
+      doc.text(`Zahlweise: ${data.zahlung}`, 10, 100);
       doc.text(`Datum: ${new Date().toLocaleDateString()}`, 10, 110);
 
-      const pdfBase64 = doc.output("datauristring").split(',')[1];
+      const pdfBase64 = doc.output("datauristring").split(",")[1];
 
-      const templateParams = {
-        name,
-        strasse,
-        ort,
-        telefon,
-        mobil,
-        email,
-        spende,
-        quittung,
-        zahlung,
+      emailjs.send("service_j48xjti", "template_fnjec28", {
+        ...data,
         pdf_attachment: pdfBase64
-      };
-
-      emailjs.send("service_j48xjti", "template_fnjec28", templateParams)
-        .then(() => {
-          alert("Antrag erfolgreich übermittelt!");
-          form.reset();
-        }, (error) => {
-          alert("Fehler beim Versenden: " + error.text);
-        });
+      }).then(() => {
+        alert("Antrag erfolgreich übermittelt!");
+        form.reset();
+      }, (error) => {
+        alert("Fehler beim Versenden: " + error.text);
+      });
     });
   </script>
 </body>
