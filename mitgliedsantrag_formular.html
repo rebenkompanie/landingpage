@@ -2,87 +2,144 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Mitgliedsantrag</title>
-
-  <!-- ✅ Korrekte EmailJS SDK -->
- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script type="text/javascript">
-  window.emailjs = emailjs;
-  emailjs.init("vGtRi_YowVHTWMd5F");
-</script>
-
-  <!-- jsPDF -->
+  <title>Mitgliedsantrag – Freunde der Reben e.V.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    window.emailjs = emailjs;
+    emailjs.init("vGtRi_YowVHTWMd5F");
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <style>
     body {
-      background-color: #eee;
       font-family: sans-serif;
+      background-color: #f4f4f4;
       padding: 2rem;
     }
-    form {
-      max-width: 500px;
+    .container {
+      max-width: 700px;
       margin: auto;
-      background: #fff;
+      background: white;
       padding: 2rem;
-      border-radius: 8px;
+      border-radius: 10px;
+      position: relative;
     }
-    input, select, label {
+    .logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 100px;
+    }
+    h2, h3 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 1rem;
       display: block;
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.5rem;
     }
-    button {
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
+    }
+    .note {
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    .button {
       background-color: #333;
       color: white;
-      padding: 0.7rem;
+      padding: 0.8rem 1.5rem;
       border: none;
+      margin-top: 1rem;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .link-inline {
+      font-weight: bold;
+      text-decoration: underline;
+      color: #000;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h2>Antrag auf Mitgliedschaft</h2>
-  <form id="membershipForm">
-    <input type="text" name="name" placeholder="Name / Vorname / Firma" required>
-    <input type="text" name="strasse" placeholder="Straße" required>
-    <input type="text" name="ort" placeholder="PLZ / Ort" required>
-    <input type="text" name="telefon" placeholder="Telefon">
-    <input type="text" name="mobil" placeholder="Mobil">
-    <input type="email" name="email" placeholder="E-Mail" required>
-    <input type="text" name="spende" placeholder="Jährliche Spende (optional)">
-    <label>Spendenquittung gewünscht:
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h2>Antrag auf Mitgliedschaft</h2>
+    <p class="note">Förderverein „Freunde der Reben e.V.“</p>
+    <p class="note">Bitte ausfüllen und absenden. Alternativ kann der Antrag auch per Mail an rebe.rebe.rebe@gmx.de gesendet werden.</p>
+
+    <form id="membershipForm">
+      <label>Name • Vorname • Firma</label>
+      <input name="name" required>
+
+      <label>Straße</label>
+      <input name="strasse" required>
+
+      <label>PLZ • Ort</label>
+      <input name="ort" required>
+
+      <label>Telefon</label>
+      <input name="telefon">
+
+      <label>Mobil</label>
+      <input name="mobil">
+
+      <label>E-Mail</label>
+      <input name="email" type="email" required>
+
+      <p class="note">Der Mitgliedsbeitrag beträgt jährlich 5,00 €; eine jährliche Spende ist separat einzutragen.</p>
+      <label>Jährliche Spende in € (optional)</label>
+      <input name="spende">
+
+      <p class="note">Mitgliedsbeitrag und Spende sind jährlich zum 01. Februar fällig und separat zu überweisen oder abbuchen zu lassen.</p>
+
+      <label>Ich wünsche eine Quittung über die Spende:</label>
       <select name="quittung">
         <option>Ja</option>
         <option>Nein</option>
       </select>
-    </label>
-    <label>Zahlweise:
+
+      <label>Zahlweise:</label>
       <select name="zahlung">
-        <option>Abbuchung</option>
+        <option>Abbuchung (SEPA Mandat liegt vor)</option>
         <option>Überweisung</option>
       </select>
-    </label>
-    <label>
-      <input type="checkbox" name="dsgvo" required> Ich stimme der Datenschutzerklärung zu.
-    </label>
-    <button type="submit">Absenden</button>
-  </form>
+
+      <p class="note">
+        Kontoverbindung:<br>
+        Sparkasse Minden Lübbecke – IBAN: DE61 4905 0101 0040 1389 19 – BIC: WELADED1MIN<br>
+        VerbundVolksbank OWL eG – IBAN: DE73 4726 0121 7140 3309 00 – BIC: DGPBDE3MXXX
+      </p>
+
+      <a href="sepa.pdf" download class="button">SEPA-Mandat herunterladen</a>
+      <p class="note">Bei Zahlung mittels SEPA-Lastschrift bitte das ausgefüllte Formular an rebe.rebe.rebe@gmx.de senden.</p>
+
+      <label>
+        <input type="checkbox" required>
+        Ich stimme der <a href="datenschutz.pdf" target="_blank" class="link-inline">Datenschutzerklärung</a> und der Aufnahme gemäß Satzung zu.
+      </label>
+
+      <button class="button" type="submit">Absenden</button>
+    </form>
+  </div>
 
   <script>
     document.getElementById("membershipForm").addEventListener("submit", async function(event) {
       event.preventDefault();
       const form = event.target;
       const data = Object.fromEntries(new FormData(form).entries());
-
-      // PDF generieren mit jsPDF
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      doc.text("Mitgliedsantrag", 10, 10);
+
+      doc.text("Mitgliedsantrag – Freunde der Reben e.V.", 10, 10);
       doc.text(`Name: ${data.name}`, 10, 20);
       doc.text(`Straße: ${data.strasse}`, 10, 30);
-      doc.text(`Ort: ${data.ort}`, 10, 40);
+      doc.text(`PLZ/Ort: ${data.ort}`, 10, 40);
       doc.text(`Telefon: ${data.telefon}`, 10, 50);
       doc.text(`Mobil: ${data.mobil}`, 10, 60);
       doc.text(`E-Mail: ${data.email}`, 10, 70);
